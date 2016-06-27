@@ -3,12 +3,16 @@ package main
 import "fmt"
 
 //import crypto "virgil_crypto"
-import "golang.org/x/crypto/curve25519"
+//import "golang.org/x/crypto/curve25519"
 import (
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/rand"
+
 	// "io"
+	"golang.org/x/crypto/curve25519"
+	"golang.org/x/crypto/pbkdf2"
+	"crypto/sha1"
 )
 
 func main() {
@@ -32,6 +36,9 @@ func main() {
 
 	fmt.Println(common)
 	fmt.Println(common1)
+
+	dk := pbkdf2.Key(common1[:], common1[:], 4096, 32, sha1.New)
+	fmt.Println(dk)
 
 	key := []byte("AES256Key-32Characters1234567890")
 	plaintext := []byte("exampleplainqerfhq9re8hfq-8ref-qr7fqr78 ftext")
