@@ -8,14 +8,19 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/rand"
-
-	// "io"
 	"golang.org/x/crypto/curve25519"
 	"golang.org/x/crypto/pbkdf2"
-	"crypto/sha1"
+	"crypto/sha512"
+	"github.com/scratch-net/ecies/VirgilSDK"
 )
 
 func main() {
+
+	hub := &VirgilSDK.ServiceHub{""}
+
+
+	fmt.Println(hub.GetPublicKey(""))
+
 	//fmt.Println(crypto.VirgilVersionAsString());
 	var private, public [32]byte
 	var private1, public1 [32]byte
@@ -37,7 +42,7 @@ func main() {
 	fmt.Println(common)
 	fmt.Println(common1)
 
-	dk := pbkdf2.Key(common1[:], common1[:], 4096, 32, sha1.New)
+	dk := pbkdf2.Key(common1[:], common1[:], 4096, 32, sha512.New)
 	fmt.Println(dk)
 
 	key := []byte("AES256Key-32Characters1234567890")
